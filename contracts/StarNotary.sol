@@ -18,12 +18,6 @@ contract StarNotary is ERC721 {
     // mapping the TokenId and price
     mapping(uint256 => uint256) public starsForSale;
 
-    function createStar(string memory _name, int256 _tokenId) public { // Passing the name and tokenId as a parameters
-        Star memory newStar = Star(_name, "", ""); // Star is an struct so we are creating a new Star
-        tokenIdToStarInfo[_tokenId] = newStar; // Creating in memory the Star -> tokenId mapping
-        _mint(msg.sender, _tokenId); // _mint assign the the star with _tokenId to the sender address (ownership)
-    }
-
     function createStar(string memory _name, string memory _shortName, string memory _symbol, uint256 _tokenId) public { // Passing the name and tokenId as a parameters
         Star memory newStar = Star(_name, _shortName, _symbol); // Star is an struct so we are creating a new Star
         tokenIdToStarInfo[_tokenId] = newStar; // Creating in memory the Star -> tokenId mapping
@@ -37,8 +31,9 @@ contract StarNotary is ERC721 {
     }
 
     // Function that allows you to convert an address into a payable address
-    function _make_payable(address x) internal pure returns (address payable) {
-        return address(uint160(x));
+    
+    function _make_payable(address x) internal pure returns (address payable yum) {
+        yum = address(uint160(x));
     }
 
     function buyStar(uint256 _tokenId) public  payable {
